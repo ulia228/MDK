@@ -1,0 +1,307 @@
+Галава один Знакомство 
+//Вызов программы "дата"
+[311u17@311U17 ~]$ date
+Чт янв 30 10:06:01 +07 2025
+
+//Вызов программы "календарь"
+[311u17@311U17 ~]$ cal
+     Январь 2025    
+Пн Вт Ср Чт Пт Сб Вс
+       1  2  3  4  5
+ 6  7  8  9 10 11 12
+13 14 15 16 17 18 19
+20 21 22 23 24 25 26
+27 28 29 30 31 
+//КОМАНДА что б увидетьо объем свободного пространства на дисках
+[311u17@311U17 ~]$ df
+Файловая система       1K-блоков Использовано  Доступно Использовано% Cмонтировано в
+devtmpfs                    4096            0      4096            0% /dev
+tmpfs                    7858252        54304   7803948            1% /dev/shm
+tmpfs                    3143304         4004   3139300            1% /run
+/dev/nvme0n1p5          48281448     26059256  19737148           57% /
+/dev/nvme0n1p2            995224       352732    573760           39% /boot
+/dev/nvme0n1p6         188018008     75817884 102625916           43% /home
+/dev/nvme0n1p1            610120         8028    602092            2% /boot/efi
+/dev/sda1              239254916     37656208 189372456           17% /VSD
+tmpfs                    1571648          144   1571504            1% /run/user/1804801188
+//OPEX1/WinStation.All 976542716    828002740 148539976           85% /media/share/X
+// выход из командной строки 
+ exit
+ГЛАВА 2 НАВИГАЦИЯ
+//выводит название текущего рабочего каталога
+[311u17@311U17 ~]$ pwd 
+/home/311u17@nkti.local
+ГЛАВА 3 ИССЛЕДОВАНИЕ СИСТЕМЫ
+//выводит список содержимого каталога;
+[311u17@311U17 ~]$ ls 
+ sync.sh           Видео       Загрузки      Музыка         'Рабочий стол'
+'VirtualBox VMs'   Документы   Изображения   Общедоступные   Шаблоны
+//определяет тип файла;
+[311u17@311U17 ~]$ file
+Usage: file [-bcCdEhikLlNnprsSvzZ0] [--apple] [--extension] [--mime-encoding]
+            [--mime-type] [-e <testname>] [-F <separator>]  [-f <namefile>]
+            [-m <magicfiles>] [-P <parameter=value>] [--exclude-quiet]
+            <file> ...
+       file -C [-m <magicfiles>]
+//все файлы
+[311u17@311U17 ~]$ ls -a
+ .                      .bashrc.rpmnew   .pki              Загрузки
+ ..                     .cache           sync.sh           Изображения
+ .bash_history          .config         'VirtualBox VMs'   Музыка
+ .bash_logout           .dbus            .wine             Общедоступные
+ .bash_profile          .ICEauthority    .yandex          'Рабочий стол'
+ .bash_profile.rpmnew   .lab1.txt.swp    Видео             Шаблоны
+ .bashrc                .local           Документы
+не выводит  каталоги действует как -а
+[311u17@311U17 ~]$ ls -A
+ .bash_history          .config        'VirtualBox VMs'   Музыка
+ .bash_logout           .dbus           .wine             Общедоступные
+ .bash_profile          .ICEauthority   .yandex          'Рабочий стол'
+ .bash_profile.rpmnew   .lab1.txt.swp   Видео             Шаблоны
+ .bashrc                .local          Документы
+ .bashrc.rpmnew         .pki            Загрузки
+ .cache                 sync.sh         Изображения
+//добавляет символ идентефикатора
+[311u17@311U17 ~]$ ls -F
+ sync.sh            Видео/       Загрузки/      Музыка/         'Рабочий стол'/
+'VirtualBox VMs'/   Документы/   Изображения/   Общедоступные/   Шаблоны
+//размер файла с един. измерения
+[311u17@311U17 ~]$ ls -h
+ sync.sh           Видео       Загрузки      Музыка         'Рабочий стол'
+'VirtualBox VMs'   Документы   Изображения   Общедоступные   Шаблон
+//РЕЗ. С ИСПОЛЬЗОВАНИЕ	 длинного результат 
+[311u17@311U17 ~]$ ls -L
+ sync.sh           Видео       Загрузки      Музыка         'Рабочий стол'
+'VirtualBox VMs'   Документы   Изображения   Общедоступные   Шаблоны
+//результат в обратном порядке
+[311u17@311U17 ~]$ ls -r
+ Шаблоны         Общедоступные   Изображения   Документы  'VirtualBox VMs'
+'Рабочий стол'   Музыка          Загрузки      Видео       sync.sh
+//сортировка по размеру 
+[311u17@311U17 ~]$ ls -s
+итого 40
+4  sync.sh          4  Документы    4  Музыка         4  Шаблоны
+4 'VirtualBox VMs'  4  Загрузки     4  Общедоступные
+4  Видео            4  Изображения  4 'Рабочий стол'
+//сортировка по времени
+[311u17@311U17 ~]$ ls -t
+'Рабочий стол'  'VirtualBox VMs'   Документы     Музыка          Шаблоны
+ Загрузки        Видео             Изображения   Общедоступные   sync.sh
+
+
+       file [--help]
+//выводит содержимое файла
+[311u17@311U17 ~]$ less 
+Missing filename ("less --help" for help)
+ГЛАВА 4 ОПЕРАЦИИ С ФАЙЛАМИ И КАТАЛОГАМИ
+//копирует файлы и каталоги
+[311u17@311U17 ~]$ cp
+cp: пропущен операнд, задающий файл
+По команде «cp --help» можно получить дополнительную информацию.
+//перемещает/переименовывает файлы и каталоги
+[311u17@311U17 ~]$ mv 
+mv: пропущен операнд, задающий файл
+По команде «mv --help» можно получить дополнительную информацию
+//создает каталоги;
+[311u17@311U17 ~]$ mkdir 
+mkdir: пропущен операнд
+По команде «mkdir --help» можно получить дополнительную информацию.
+//создает жесткие и символические ссылки
+[311u17@311U17 ~]$ ln
+ln: пропущен операнд, задающий файл
+По команде «ln --help» можно получить дополнительную информаци
+ГЛАВА 5 РАБОТА С КОМАНДАМИ
+//— сообщает, как интерпретируется имя указанной команды
+[311u17@311U17 ~]$ type
+//сообщает, какая программа будет выполнена;
+[311u17@311U17 ~]$ which
+Usage: /usr/bin/which [options] [--] COMMAND [...]
+Write the full path of COMMAND(s) to standard output.
+
+  --version, -[vV] Print version and exit successfully.
+  --help,          Print this help and exit successfully.
+  --skip-dot       Skip directories in PATH that start with a dot.
+  --skip-tilde     Skip directories in PATH that start with a tilde.
+  --show-dot       Don't expand a dot to current directory in output.
+  --show-tilde     Output a tilde for HOME directory for non-root.
+  --tty-only       Stop processing options on the right if not on tty.
+  --all, -a        Print all matches in PATH, not just the first
+  --read-alias, -i Read list of aliases from stdin.
+  --skip-alias     Ignore option --read-alias; don't read stdin.
+  --read-functions Read shell functions from stdin.
+  --skip-functions Ignore option --read-functions; don't read stdin.
+
+Recommended use is to write the output of (alias; declare -f) to standard
+input, so that which can show aliases and shell functions. See which(1) for
+examples.
+
+If the options --read-alias and/or --read-functions are specified then the
+output can be a full alias or function definition, optionally followed by
+the full path of each command used inside of those.
+
+Report bugs to <which-bugs@gnu.org>.
+//выводит справку по встроенным командам оболочки;
+[311u17@311U17 ~]$ help 
+GNU bash, версия 5.2.15(1)-release (x86_64-koji-linux-gnu)
+Показанные ниже команды определены внутри командного процессора.  Чтобы вывести полный список, введите «help».
+Чтобы вывести справку по функции «name», введите «help name».
+Чтобы вывести справку по командному процессору, введите «info bash».
+Чтобы вывести справку по командам, которые отсутствуют в этом списке, введите «man -k» или «info».
+
+Звёздочка (*) рядом с названием команды означает, что эта команда отключена.
+
+ задание [&]                             history [-c] [-d смещение] [n] или h>
+ (( выражение ))                         if КОМАНДЫ; then КОМАНДЫ; [ elif КОМ>
+ . файл [аргументы]                      jobs [-lnprs] [задание ...] или jobs>
+ :                                       kill [-s назв_сигнала | -n номер_сиг>
+ [ аргумент... ]                         let аргумент [аргумент ...]
+ [[ выражение ]]                         local [параметр] имя[=значение] ...
+ alias [-p] [имя[=значение] ... ]        logout [n]
+ bg [задание ...]                        mapfile [-d разделитель] [-n число] >
+ bind [-lpvsPSVX] [-m раскладка] [-f ф>  popd [-n] [+N | -N]
+ break [n]                               printf [-v переменная] формат [аргум>
+ builtin [встр_команда [аргумент ...]>   pushd [-n] [+N | -N | каталог]
+ caller [выражение]                      pwd [-LP]
+ case СЛОВО in [ШАБЛОН [| ШАБЛОН]...) >  read [-ers] [-a массив] [-d разделит>
+ cd [-L|[-P [-e]] [-@]] [каталог]        readarray [-d разделитель] [-n число>
+ command [-pVv] команда [аргумент ...>   readonly [-aAf] [имя[=значение] ...]>
+ compgen [-abcdefgjksuv] [-o параметр]>  return [n]
+ complete [-abcdefgjksuv] [-pr] [-DEI]>  select ИМЯ [in СЛОВА ... ;] do КОМАН>
+ compopt [-o|+o параметр] [-DEI] [имя >  set [-abefhkmnptuvxBCEHPT] [-o optio>
+ continue [n]                            shift [n]
+ coproc [ИМЯ] команда [перенаправления>  shopt [-pqsu] [-o] [параметр ...]
+ declare [-aAfFgiIlnrtux] [name[=value>  source файл [аргументы]
+ dirs [-clpv] [+N] [-N]                  suspend [-f]
+ disown [-h] [-ar] [задание ... | pid >  test [выражение]
+ echo [-neE] [аргумент ...]              time [-p] конвейер
+ enable [-a] [-dnps] [-f файл] [имя ..>  times
+ eval [аргумент ...]                     trap [-lp] [[аргумент] сигнал ...]
+ exec [-cl] [-a имя] [команда [аргумен>  true
+ exit [n]                                type [-afptP] имя [имя ...]
+ export [-fn] [имя[=значение ...] или >  typeset [-aAfFgiIlnrtux] name[=value>
+ false                                   ulimit [-SHabcdefiklmnpqrstuvxPRT] [>
+ fc [-e редактор] [-lnr] [первая] [пос>  umask [-p] [-S] [режим]
+ fg [задание]                            unalias [-a] имя [имя ...]
+ for ИМЯ [in СЛОВА... ;] do КОМАНДЫ; d>  unset [-f] [-v] [-n] [имя ...]
+ for (( выраж1; выраж2; выраж3 )); do >  until COMMANDS; do COMMANDS-2; done
+ function ИМЯ { КОМАНДЫ ; } или ИМЯ ()>  переменные — имена и значения некото>
+ getopts строка_параметров имя [аргуме>  wait [-fn] [-p переменная] [идентифи>
+ hash [-lr] [-p путь] [-dt] [имя ...]    while COMMANDS; do COMMANDS-2; done
+ help [-dms] [шаблон ...]                { КОМАНДЫ ; 
+//выводит страницу справочного руководства с описанием команды
+[311u17@311U17 ~]$ man 
+Какая справочная страница вам нужна
+// выводит список подходящих команд
+[311u17@311U17 ~]$ apropos 
+apropos что?
+//выводит запись из справочного руководства Info с описанием команды;
+Next: Overview,  Up: (dir)
+
+GNU RCS
+*******
+
+This manual is for GNU RCS (version 5.9.4, 18 January 2015).
+
+   Copyright © 2010–2015 Thien-Thi Nguyen
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with no Front-Cover Texts,
+     and with no Back-Cover Texts.  A copy of the license is included in
+     the appendix entitled “GNU Free Documentation License”.
+//выводит краткое описание команды;
+[311u17@311U17 ~]$ whatis
+whatis что?
+//создает псевдоним для команды.
+[311u17@311U17 ~]$ alias 
+alias cls='clear'
+alias diskspace='df -h'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias mc='. /usr/libexec/mc/mc-wrapper.sh'
+alias mingw32-env='eval `rpm --eval %{mingw32_env}`'
+alias mingw64-env='eval `rpm --eval %{mingw64_env}`'
+alias which='(alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'
+ГЛАВА 6 ПЕРЕНАПРАВЛЕНИЕ
+//объединяет файлы
+[311u17@311U17 ~]$ cat
+//сортирует строки текста;
+ [311u17@311U17 ~]$ sort 
+^Z
+[4]+  Остановлен
+//сообщает о повторяющихся строках или удаляет их;
+[311u17@311U17 ~]$ uniq
+^Z
+[5]+  Остановлен    uniq
+//grep — находит и выводит строки, соответствующие шаблону
+//wc — выводит число символов перевода строки, слов и байтов в каждом указанном
+файле
+//head — выводит первые строки из файла;
+//tail — выводит последние строки из файла;
+//tee — читает данные со стандартного ввода и записывает в стандартный вывод
+и в файлы.
+ГЛАВА 8 
+//До очистки экрана:
+[311u17@311U17 ~]$ sort 
+^Z
+[3]+  Остановлен    sort
+[311u17@311U17 ~]$ sort 
+^Z
+[4]+  Остановлен    sort
+[311u17@311U17 ~]$ uniq
+^Z
+[5]+  Остановлен    uniq
+//После очистки экрана
+[311u17@311U17 ~]$ 
+//выводит содержимое истории команд.
+[311u17@311U17 ~]$ history 
+     1  su -
+    2  date
+    3  cal
+    4  df
+    5   exit
+    6  pwd 
+    7  cd
+    8  ls 
+    9  file
+   10  less 
+   11  cp
+   12  mv 
+   13  mkdir 
+   14  ln
+   15  type
+   16  which
+   17  help 
+   18  man 
+   19  apropos 
+   20  info 
+   21  whatis
+   22  alias 
+   23  cat
+   24  sort 
+   25  uniq
+   26  clear
+   27  history 
+   28  ls--all
+   29  ls-a
+   30  ls -a
+   31  ls -A
+   32  ls -d
+   33  ls -F
+   34  ls -h
+   35  ls -L
+   36  ls -r
+   37  ls -s
+   38  ls -t
+   39  history
+ 
+ГЛАВА 9 ПРИВЕЛЕГИИ
+
