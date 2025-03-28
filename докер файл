@@ -187,8 +187,7 @@ testjava     0.1       68f6dc7ef1ab   25 hours ago        470MB
 <none>       <none>    a0362dec749b   26 hours ago        470MB
 ubuntu       22.04     a24be041d957   2 months ago        77.9MB
 mysql        latest    fa262c3a6564   2 months ago        797MB
-@ulia228 ➜ /workspaces/MDK/prj3 (main) $ docker run -d --name mysql  -p 8081:80 kit
-a291203f719cb0b4c4846887a51a64e561864d105491a7d2c6686c03299d245b
+
 
 
 
