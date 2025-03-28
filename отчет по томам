@@ -1,0 +1,34 @@
+@ulia228 ➜ /workspaces/MDK/prj4 (main) $ docker build -t sun .
+[+] Building 0.7s (7/7) FINISHED                    docker:default
+ => [internal] load build definition from Dockerfile          0.0s
+ => => transferring dockerfile: 111B                          0.0s
+ => [internal] load metadata for docker.io/library/photon:la  0.0s
+ => [internal] load .dockerignore                             0.0s
+ => => transferring context: 2B                               0.0s
+ => [1/3] FROM docker.io/library/photon:latest                0.0s
+ => CACHED [2/3] RUN touch test                               0.0s
+ => [3/3] RUN echo "<3 winx" >> test                          0.1s
+ => exporting to image                                        0.5s
+ => => exporting layers                                       0.5s
+ => => writing image sha256:13c0afa2d71a4eb138f2cebc154f0df8  0.0s
+ => => naming to docker.io/library/sun                        0.0s
+@ulia228 ➜ /workspaces/MDK/prj4 (main) $ docker run -it --rm sun
+<3 winx
+@ulia228 ➜ /workspaces/MDK/prj4 (main) $ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
+sun          latest    13c0afa2d71a   About a minute ago   40.3MB
+kit          latest    0346ea4b683c   26 minutes ago       797MB
+winx         latest    f9d1c88d6de1   About an hour ago    410MB
+testjava     0.1       68f6dc7ef1ab   25 hours ago         470MB
+<none>       <none>    7a4dd176e0bf   25 hours ago         470MB
+<none>       <none>    a0362dec749b   26 hours ago         470MB
+photon       latest    ddf10f6abe77   4 days ago           40.3MB
+ubuntu       22.04     a24be041d957   2 months ago         77.9MB
+mysql        latest    fa262c3a6564   2 months ago         797MB
+@ulia228 ➜ /workspaces/MDK/prj4 (main) $ docker run -d --name photon -p 8082:80 sun
+edec8b4997b1a12b2202810bcf770bfa681317cfa7e4119622fd85529240337c
+@ulia228 ➜ /workspaces/MDK/prj4 (main) $ cat Dockerfile 
+FROM photon
+RUN touch test
+RUN echo "<3 winx" >> test
+CMD ["cat","test"]
