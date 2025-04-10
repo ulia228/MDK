@@ -1,0 +1,521 @@
+u17@u17-VirtualBox:~$ docker images
+REPOSITORY          TAG       IMAGE ID       CREATED         SIZE
+alpine              latest    aded1e1a5b37   7 weeks ago     7.83MB
+nicolaka/netshoot   latest    27b858cdcd8a   10 months ago   542MB
+u17@u17-VirtualBox:~$ docker network create -d birdge --subnet 192.168.17.0/26 --gateway 192.168.17.62 Net1
+Error response from daemon: plugin "birdge" not found
+u17@u17-VirtualBox:~$ docker network create -d bridge --subnet 192.168.17.0/26 --gateway 192.168.17.62 Net1
+082a2b5315422eecb859f94fc1b80abd323aed1249f0eb8456de7565b8b20c0f
+u17@u17-VirtualBox:~$ docker network create -d bridge --subnet 192.168.17.64/26 --gateway 192.168.17.126 Net2
+f825a3151720c16b7f1d3b544a867b3fadb6b0cda12662118a00ccc1b33aeaa2
+u17@u17-VirtualBox:~$ docker network create -d bridge --subnet 192.168.17.128/27  --gateway 192.168.17.158 Net3
+6d922018897352a0c731c7e7f78dc7c44520547cd371dd6d4c61164f93764dfa
+u17@u17-VirtualBox:~$ docker network create -d bridge --subnet 192.168.17.160/29  --gateway 192.168.17.166 Net4
+0363a4170a2997dc4b453f4a9830b612345eb94e9e122f07478f8b49b4142640
+u17@u17-VirtualBox:~$ docker network inspect Net1
+[
+    {
+        "Name": "Net1",
+        "Id": "082a2b5315422eecb859f94fc1b80abd323aed1249f0eb8456de7565b8b20c0f",
+        "Created": "2025-04-10T12:44:45.161569282+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.0/26",
+                    "Gateway": "192.168.17.62"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net2
+[
+    {
+        "Name": "Net2",
+        "Id": "f825a3151720c16b7f1d3b544a867b3fadb6b0cda12662118a00ccc1b33aeaa2",
+        "Created": "2025-04-10T12:46:14.682878639+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.64/26",
+                    "Gateway": "192.168.17.126"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net3
+[
+    {
+        "Name": "Net3",
+        "Id": "6d922018897352a0c731c7e7f78dc7c44520547cd371dd6d4c61164f93764dfa",
+        "Created": "2025-04-10T12:47:21.521716562+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.128/27",
+                    "Gateway": "192.168.17.158"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net4
+[
+    {
+        "Name": "Net4",
+        "Id": "0363a4170a2997dc4b453f4a9830b612345eb94e9e122f07478f8b49b4142640",
+        "Created": "2025-04-10T12:48:15.927413015+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.160/29",
+                    "Gateway": "192.168.17.166"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED              STATUS              PORTS     NAMES
+868d5af43274   alpine    "/bin/sh"   13 seconds ago       Up 10 seconds                 winx4.2
+749e76d5438c   alpine    "/bin/sh"   24 seconds ago       Up 21 seconds                 winx4.1
+e3445cdb0e08   alpine    "/bin/sh"   48 seconds ago       Up 45 seconds                 winx3.2
+cc01e02c99cf   alpine    "/bin/sh"   About a minute ago   Up 56 seconds                 winx3.1
+bc5d8e9a7bc1   alpine    "/bin/sh"   About a minute ago   Up About a minute             winx2.2
+3fbfecbe7b36   alpine    "/bin/sh"   About a minute ago   Up About a minute             winx2.1
+de03535da628   alpine    "/bin/sh"   2 minutes ago        Up 2 minutes                  winx1.2
+d2e1e2f542d5   alpine    "/bin/sh"   3 minutes ago        Up 3 minutes                  winx1.1
+u17@u17-VirtualBox:~$ docker network inspect Net1
+[
+    {
+        "Name": "Net1",
+        "Id": "082a2b5315422eecb859f94fc1b80abd323aed1249f0eb8456de7565b8b20c0f",
+        "Created": "2025-04-10T12:44:45.161569282+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.0/26",
+                    "Gateway": "192.168.17.62"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "d2e1e2f542d5505b30ca26a7bcfc2326e69d4fc32d9f14304408fbca72d5ab15": {
+                "Name": "winx1.1",
+                "EndpointID": "4944fa1261fa79586b1d85f30ea7741b42a7180e94518914399aa3c54be4aed8",
+                "MacAddress": "52:a5:f1:bd:b5:70",
+                "IPv4Address": "192.168.17.1/26",
+                "IPv6Address": ""
+            },
+            "de03535da628c84de9a012cec054c2f4e8c37bac29b798c34401b87df4cf314f": {
+                "Name": "winx1.2",
+                "EndpointID": "5b814cd4daaacc844657c369bdc2e4720da082a05f64be5d4103435ab22a7391",
+                "MacAddress": "06:97:e1:c8:e7:ef",
+                "IPv4Address": "192.168.17.2/26",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net2
+[
+    {
+        "Name": "Net2",
+        "Id": "f825a3151720c16b7f1d3b544a867b3fadb6b0cda12662118a00ccc1b33aeaa2",
+        "Created": "2025-04-10T12:46:14.682878639+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.64/26",
+                    "Gateway": "192.168.17.126"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "3fbfecbe7b3621f9a4f95b96df6ba124636ecd4b6379d1f0ae4e834df068b2dc": {
+                "Name": "winx2.1",
+                "EndpointID": "a1b3c89dcfae89c9ace73440de223369fd96079273008baa01b75f50d2f79fc3",
+                "MacAddress": "2a:47:9e:88:48:31",
+                "IPv4Address": "192.168.17.65/26",
+                "IPv6Address": ""
+            },
+            "bc5d8e9a7bc15f0f9dfd513e43aa17fc892c98db65ea1585223aeee1a7014dcd": {
+                "Name": "winx2.2",
+                "EndpointID": "d216d54278a24e8ce6b44c1d34327394d29be10e4125d1af042bfe8a97ad2b07",
+                "MacAddress": "ee:0b:02:a1:f2:a5",
+                "IPv4Address": "192.168.17.66/26",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net3
+[
+    {
+        "Name": "Net3",
+        "Id": "6d922018897352a0c731c7e7f78dc7c44520547cd371dd6d4c61164f93764dfa",
+        "Created": "2025-04-10T12:47:21.521716562+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.128/27",
+                    "Gateway": "192.168.17.158"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "cc01e02c99cfd103bbf97fb2b964fe74e78603af34a23eb273961b19941f0642": {
+                "Name": "winx3.1",
+                "EndpointID": "be90787391f7527d2988b8d04be28d5e862e80c3354732856c4b120f1348fcc0",
+                "MacAddress": "a2:4e:cc:ba:c2:5a",
+                "IPv4Address": "192.168.17.129/27",
+                "IPv6Address": ""
+            },
+            "e3445cdb0e08864cb570effc4f8744bbf1d3f54aab71ba7666e5ef5f272c8cb8": {
+                "Name": "winx3.2",
+                "EndpointID": "359f9fb6763de7bad2b21457ff0a780a6585704f239090a55a4cbdeac7a4fd93",
+                "MacAddress": "ca:aa:e1:c3:a5:57",
+                "IPv4Address": "192.168.17.130/27",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+u17@u17-VirtualBox:~$ docker network inspect Net4
+[
+    {
+        "Name": "Net4",
+        "Id": "0363a4170a2997dc4b453f4a9830b612345eb94e9e122f07478f8b49b4142640",
+        "Created": "2025-04-10T12:48:15.927413015+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.17.160/29",
+                    "Gateway": "192.168.17.166"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "749e76d5438cad406e9ba39b0b4c32d7463bd2fe7359992d440c8442218c68bd": {
+                "Name": "winx4.1",
+                "EndpointID": "e622f98421849a9d387b0c356ee869540ae699b7fe7087d21d72726f8a803168",
+                "MacAddress": "ea:bc:4d:21:3e:14",
+                "IPv4Address": "192.168.17.161/29",
+                "IPv6Address": ""
+            },
+            "868d5af4327480c2dff89ffde863dc9a0ce8c2787275244448051c03b258b728": {
+                "Name": "winx4.2",
+                "EndpointID": "55cad1d1cbbe282641e84b9946dcd29324e7dfd901f777ef284720f84aa83fec",
+                "MacAddress": "86:3f:d2:f4:6b:77",
+                "IPv4Address": "192.168.17.162/29",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+пингуется толлько внутри подсети
+u17@u17-VirtualBox:~$ docker exec -it winx1.1 ping 192.168.17.1
+PING 192.168.17.1 (192.168.17.1): 56 data bytes
+64 bytes from 192.168.17.1: seq=0 ttl=64 time=0.039 ms
+64 bytes from 192.168.17.1: seq=1 ttl=64 time=0.094 ms
+64 bytes from 192.168.17.1: seq=2 ttl=64 time=0.119 ms
+64 bytes from 192.168.17.1: seq=3 ttl=64 time=0.117 ms
+64 bytes from 192.168.17.1: seq=4 ttl=64 time=0.127 ms
+64 bytes from 192.168.17.1: seq=5 ttl=64 time=0.111 ms
+^C
+--- 192.168.17.1 ping statistics ---
+6 packets transmitted, 6 packets received, 0% packet loss
+round-trip min/avg/max = 0.039/0.101/0.127 ms
+u17@u17-VirtualBox:~$ docker exec winx2.2 ping -c 4 192.168.17.126
+PING 192.168.17.126 (192.168.17.126): 56 data bytes
+64 bytes from 192.168.17.126: seq=0 ttl=64 time=0.546 ms
+64 bytes from 192.168.17.126: seq=1 ttl=64 time=0.146 ms
+64 bytes from 192.168.17.126: seq=2 ttl=64 time=0.147 ms
+64 bytes from 192.168.17.126: seq=3 ttl=64 time=0.180 ms
+
+--- 192.168.17.126 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.146/0.254/0.546 
+
+u17@u17-VirtualBox:~$ docker exec winx3.2 ping -c 4 192.168.17.158
+PING 192.168.17.158 (192.168.17.158): 56 data bytes
+64 bytes from 192.168.17.158: seq=0 ttl=64 time=0.735 ms
+64 bytes from 192.168.17.158: seq=1 ttl=64 time=0.310 ms
+64 bytes from 192.168.17.158: seq=2 ttl=64 time=0.183 ms
+64 bytes from 192.168.17.158: seq=3 ttl=64 time=0.150 ms
+
+--- 192.168.17.158 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.150/0.344/0.735 ms
+u17@u17-VirtualBox:~$ docker exec winx4.2 ping -c 4 192.168.17.166
+PING 192.168.17.166 (192.168.17.166): 56 data bytes
+64 bytes from 192.168.17.166: seq=0 ttl=64 time=0.296 ms
+64 bytes from 192.168.17.166: seq=1 ttl=64 time=0.154 ms
+64 bytes from 192.168.17.166: seq=2 ttl=64 time=0.139 ms
+64 bytes from 192.168.17.166: seq=3 ttl=64 time=0.194 ms
+
+--- 192.168.17.166 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.139/0.195/0.296 ms
+u17@u17-VirtualBox:~$ docker network create -d bridge --subnet 192.168.18.0/24 --gateway 192.168.18.254 Net5
+13cca24ba534fb005704257628a4d9f75d8af8627609e4d5ca2733fe908716c7
+u17@u17-VirtualBox:~$ docker network connect Net5 winx1.1 
+u17@u17-VirtualBox:~$ docker network connect Net5 winx2.1 
+^[[Au17@u17-VirtualBox
+u17@u17-VirtualBox:~$ docker network connect Net5 winx3.1 
+u17@u17-VirtualBox:~$ docker network connect Net5 winx4.1 
+u17@u17-VirtualBox:~$ docker network inspect Net5
+[
+    {
+        "Name": "Net5",
+        "Id": "13cca24ba534fb005704257628a4d9f75d8af8627609e4d5ca2733fe908716c7",
+        "Created": "2025-04-10T13:32:00.616305089+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.18.0/24",
+                    "Gateway": "192.168.18.254"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "3fbfecbe7b3621f9a4f95b96df6ba124636ecd4b6379d1f0ae4e834df068b2dc": {
+                "Name": "winx2.1",
+                "EndpointID": "0f0b0a31a1b4a0f96828951b8de153603488f915cac45df36c49aa72047d317b",
+                "MacAddress": "82:ae:bf:1f:6f:77",
+                "IPv4Address": "192.168.18.2/24",
+                "IPv6Address": ""
+            },
+            "749e76d5438cad406e9ba39b0b4c32d7463bd2fe7359992d440c8442218c68bd": {
+                "Name": "winx4.1",
+                "EndpointID": "14dc000c8d41757b12b1a1d7d4947b4809855358958dc0b89429f068328eac39",
+                "MacAddress": "0e:4a:d6:3d:ac:8d",
+                "IPv4Address": "192.168.18.4/24",
+                "IPv6Address": ""
+            },
+            "cc01e02c99cfd103bbf97fb2b964fe74e78603af34a23eb273961b19941f0642": {
+                "Name": "winx3.1",
+                "EndpointID": "91ed7e9ae042bea09ede09d3dd5906c484cbd1462a53285289f0bac24d107b34",
+                "MacAddress": "7e:be:5a:98:fc:f9",
+                "IPv4Address": "192.168.18.3/24",
+                "IPv6Address": ""
+            },
+            "d2e1e2f542d5505b30ca26a7bcfc2326e69d4fc32d9f14304408fbca72d5ab15": {
+                "Name": "winx1.1",
+                "EndpointID": "40afb4e37266f0cdf35e68efc5404df6e9836cedf441c50a5efff01f2a68dbdb",
+                "MacAddress": "22:a5:31:41:d9:b3",
+                "IPv4Address": "192.168.18.1/24",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+из сети в сеть не пингуется
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.17.126 
+PING 192.168.17.126 (192.168.17.126): 56 data bytes
+^Ccontext canceled
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping 192.168.17.1
+PING 192.168.17.1 (192.168.17.1): 56 data bytes
+64 bytes from 192.168.17.1: seq=0 ttl=64 time=0.047 ms
+64 bytes from 192.168.17.1: seq=1 ttl=64 time=0.111 ms
+64 bytes from 192.168.17.1: seq=2 ttl=64 time=0.117 ms
+64 bytes from 192.168.17.1: seq=3 ttl=64 time=0.077 ms
+^Ccontext canceled
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.17.126 
+PING 192.168.17.126 (192.168.17.126): 56 data bytes
+^Ccontext canceled
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.18.126 
+PING 192.168.18.126 (192.168.18.126): 56 data bytes
+^Ccontext canceled
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.18.2
+PING 192.168.18.2 (192.168.18.2): 56 data bytes
+64 bytes from 192.168.18.2: seq=0 ttl=64 time=1.508 ms
+64 bytes from 192.168.18.2: seq=1 ttl=64 time=0.116 ms
+64 bytes from 192.168.18.2: seq=2 ttl=64 time=0.133 ms
+64 bytes from 192.168.18.2: seq=3 ttl=64 time=0.116 ms
+
+--- 192.168.18.2 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.116/0.468/1.508 ms
+u17@u17-VirtualBox:~$ 
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.18.3
+PING 192.168.18.3 (192.168.18.3): 56 data bytes
+64 bytes from 192.168.18.3: seq=0 ttl=64 time=0.626 ms
+64 bytes from 192.168.18.3: seq=1 ttl=64 time=0.180 ms
+64 bytes from 192.168.18.3: seq=2 ttl=64 time=0.149 ms
+64 bytes from 192.168.18.3: seq=3 ttl=64 time=0.151 ms
+
+--- 192.168.18.3 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.149/0.276/0.626 ms
+u17@u17-VirtualBox:~$ docker exec winx1.1 ping -c 4 192.168.18.4
+PING 192.168.18.4 (192.168.18.4): 56 data bytes
+64 bytes from 192.168.18.4: seq=0 ttl=64 time=0.392 ms
+64 bytes from 192.168.18.4: seq=1 ttl=64 time=0.172 ms
+64 bytes from 192.168.18.4: seq=2 ttl=64 time=0.211 ms
+64 bytes from 192.168.18.4: seq=3 ttl=64 time=0.153 ms
+
+--- 192.168.18.4 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.153/0.232/0.392 ms
+
+u17@u17-VirtualBox:~$ docker pull httpd
+Using default tag: latest
+latest: Pulling from library/httpd
+8a628cdd7ccc: Pull complete 
+60ba3d18ad64: Pull complete 
+4f4fb700ef54: Pull complete 
+03e322382f93: Pull complete 
+4ad6b63c403f: Pull complete 
+c613327bbca6: Pull complete 
+Digest: sha256:4564ca7604957765bd2598e14134a1c6812067f0daddd7dc5a484431dd03832b
+Status: Downloaded newer image for httpd:latest
+docker.io/library/httpd:latest
+u17@u17-VirtualBox:~$ docker run -d --net host --name web httpd
+ee304d7f067fc9a3ac866720c35cf3a6678217c6fe4b2e6c78e0e25ff55e90f5
+u17@u17-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND              CREATED             STATUS             PORTS     NAMES
+ee304d7f067f   httpd     "httpd-foreground"   2 minutes ago       Up 2 minutes                 webв
+ браузере  высветилось IT WORKS при запросе localhost
+
+
