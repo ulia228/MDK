@@ -1,0 +1,322 @@
+ подключаемся по ssh 
+
+┌──(ulia㉿ulia)-[~/mytest/Docker-compose/doc_net_test/mysql]
+└─$ ssh ulia@192.168.17.253
+The authenticity of host '192.168.17.253 (192.168.17.253)' can't be established.
+ED25519 key fingerprint is SHA256:tAosuBJHdySslT43Iliv9WwKRpxVJU/RW/AzHQsRwPU.
+
+Проверяем  диск рейда 
+Last login: Fri May 23 02:17:08 2025 from 192.168.15.232
+ulia@ulia:~$ sudo fdisk -l
+[sudo] password for ulia: 
+Disk /dev/sda: 50 GiB, 53687091200 bytes, 104857600 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: AD0A52E9-7473-46E4-A302-7FDFA1B10B53
+
+Device       Start       End   Sectors Size Type
+/dev/sda1     2048      4095      2048   1M BIOS boot
+/dev/sda2     4096   4198399   4194304   2G Linux filesystem
+/dev/sda3  4198400 104855551 100657152  48G Linux filesystem
+
+
+Disk /dev/sdb: 9 GiB, 9663676416 bytes, 18874368 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: CA3E6B4F-42B6-41F3-B110-AC357E2829D4
+
+Device        Start      End Sectors Size Type
+/dev/sdb1      2048  6293503 6291456   3G Linux filesystem
+/dev/sdb2   6293504 12584959 6291456   3G Linux filesystem
+/dev/sdb3  12584960 18872319 6287360   3G Linux filesystem
+
+
+Disk /dev/sdc: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: C2AE31B4-BB7C-4373-8A6A-38DE944F1F7F
+
+Device     Start      End  Sectors Size Type
+/dev/sdc1   2048 10483711 10481664   5G Linux RAID
+
+
+Disk /dev/sdd: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: CED79103-F488-4CEF-B4FA-EA26DBB23CB8
+
+Device     Start      End  Sectors Size Type
+/dev/sdd1   2048 10483711 10481664   5G Linux RAID
+
+
+Disk /dev/sde: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 12A3C306-831F-4600-9FF8-E35241B4FA08
+
+
+Disk /dev/md0: 4,99 GiB, 5361369088 bytes, 10471424 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: FA0DEEA9-230F-4EA1-A125-53FD4B53AD5C
+
+Device     Start      End  Sectors Size Type
+/dev/md0p1  2048 10469375 10467328   5G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 24 GiB, 25765609472 bytes, 50323456 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+ulia@ulia:~$ ls /media
+RAID
+ulia@ulia:~$ ls /media/RAID
+123  etc  lost+found
+ulia@ulia:~$ cat /media/RAID/123
+12345 winx
+ 04:46:48 up 51 min,  2 users,  load average: 0,07, 0,08, 0,03
+
+проверяем рейд и перезогружаем  
+
+ulia@ulia:~$ sudo cat /proc/mdstat
+Personalities : [raid1] [raid0] [raid6] [raid5] [raid4] [raid10] 
+md0 : active raid1 sdc1[0] sdd1[1]
+      5235712 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+ulia@ulia:~$ poweroff
+
+входим в безопасный режим выполняeм следующие команды 
+
+nano /etc/fstab
+mdadm --stop /dev/md0 
+cat /proc/mdstat
+mdadm --assemble --scan
+cat /proc/mdstat
+lsblk -f
+nano /etc/fstab 
+mount -a
+poweroff
+перезогружаем проверяем состояние диска
+ просмотрим дополнительные обновления : apt list --upgradable
+Last login: Thu May 29 02:39:57 2025 from 192.168.114.232
+ulia@ulia:~$ sudo lsblk -f
+[sudo] password for ulia: 
+NAME                      FSTYPE            FSVER    LABEL  UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+sda                                                                                                               
+├─sda1                                                                                                            
+├─sda2                    ext4              1.0             c206a3b8-7d7e-4768-9d57-e1d9a9dfc43f      1,6G     9% /boot
+└─sda3                    LVM2_member       LVM2 001        x0GoKy-264e-NMP5-DhVS-a1dW-i9F5-mEuo2C                
+  └─ubuntu--vg-ubuntu--lv ext4              1.0             1db8f256-12e4-4e65-9a2b-30f41a6f6b70     14,1G    35% /
+sdb                                                                                                               
+├─sdb1                    ext4              1.0             f35027da-6e72-4aa2-a398-b6d552e081a4      2,7G     0% /mnt/ext4
+├─sdb2                    btrfs                             18d8cbd4-5015-43d6-96f9-71a377fb4d92      2,5G     0% /mnt/btrfs
+└─sdb3                    xfs                               d6ae50b7-9417-4e84-b77a-04d08df408a4      2,8G     3% /mnt/xfs
+sdc                                                                                                               
+└─sdc1                    linux_raid_member 1.2      user:0 92329e53-0a21-1e95-465b-b501e72ec2d3                  
+  └─md0                                                                                                           
+    └─md0p1               ext4              1.0             d88f59a6-385a-4206-b7cd-e3dceb698782      4,6G     0% /media/RAID
+sdd                                                                                                               
+sr0                                                                                                               
+ulia@ulia:~$ sudo gdisk /dev/sdd
+GPT fdisk (gdisk) version 1.0.10
+
+Partition table scan:
+  MBR: protective
+  BSD: not present
+  APM: not present
+  GPT: present
+
+Found valid GPT with protective MBR; using GPT.
+
+Command (? for help): o
+This option deletes all partitions and creates a new protective MBR.
+Proceed? (Y/N): y
+
+Command (? for help): n
+Partition number (1-128, default 1): 
+First sector (34-10485726, default = 2048) or {+-}size{KMGTP}: 
+Last sector (2048-10485726, default = 10483711) or {+-}size{KMGTP}: 
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300): l   
+Type search string, or <Enter> to show all codes: raid
+8503 Container Linux root on RAID        a505 FreeBSD Vinum/RAID                
+a906 NetBSD RAID                         af01 Apple RAID                        
+af02 Apple RAID offline                  af06 Apple SoftRAID Status             
+af07 Apple SoftRAID Scratch              af08 Apple SoftRAID Volume             
+af09 Apple SoftRAID Cache                fd00 Linux RAID                        
+Hex code or GUID (L to show codes, Enter = 8300): fd00
+Changed type of partition to 'Linux RAID'
+
+Command (? for help): w
+
+Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING
+PARTITIONS!!
+
+Do you want to proceed? (Y/N): y
+OK; writing new GUID partition table (GPT) to /dev/sdd.
+The operation has completed successfully.
+ulia@ulia:~$ sudo lsblk -f
+NAME                      FSTYPE            FSVER    LABEL  UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+sda                                                                                                               
+├─sda1                                                                                                            
+├─sda2                    ext4              1.0             c206a3b8-7d7e-4768-9d57-e1d9a9dfc43f      1,6G     9% /boot
+└─sda3                    LVM2_member       LVM2 001        x0GoKy-264e-NMP5-DhVS-a1dW-i9F5-mEuo2C                
+  └─ubuntu--vg-ubuntu--lv ext4              1.0             1db8f256-12e4-4e65-9a2b-30f41a6f6b70     14,1G    35% /
+sdb                                                                                                               
+├─sdb1                    ext4              1.0             f35027da-6e72-4aa2-a398-b6d552e081a4      2,7G     0% /mnt/ext4
+├─sdb2                    btrfs                             18d8cbd4-5015-43d6-96f9-71a377fb4d92      2,5G     0% /mnt/btrfs
+└─sdb3                    xfs                               d6ae50b7-9417-4e84-b77a-04d08df408a4      2,8G     3% /mnt/xfs
+sdc                                                                                                               
+└─sdc1                    linux_raid_member 1.2      user:0 92329e53-0a21-1e95-465b-b501e72ec2d3                  
+  └─md0                                                                                                           
+    └─md0p1               ext4              1.0             d88f59a6-385a-4206-b7cd-e3dceb698782      4,6G     0% /media/RAID
+sdd                                                                                                               
+└─sdd1                                                                                                            
+sr0                                                                                                               
+
+ добовляем новый диск 
+root@ulia:/media/RAID# cp -rf /var/lib/docker /media/RAID
+root@ulia:/media/RAID# ls 
+123  docker  etc  lost+found  ttt
+root@ulia:/media/RAID# ls docker
+buildkit  containers  engine-id  image  network  overlay2  plugins  runtimes  swarm  tmp  volumes
+root@ulia:/media/RAID# lsblk -f
+NAME                      FSTYPE            FSVER    LABEL  UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+sda                                                                                                               
+├─sda1                                                                                                            
+├─sda2                    ext4              1.0             c206a3b8-7d7e-4768-9d57-e1d9a9dfc43f      1,6G     9% /boot
+└─sda3                    LVM2_member       LVM2 001        x0GoKy-264e-NMP5-DhVS-a1dW-i9F5-mEuo2C                
+  └─ubuntu--vg-ubuntu--lv ext4              1.0             1db8f256-12e4-4e65-9a2b-30f41a6f6b70     14,1G    35% /
+sdb                                                                                                               
+├─sdb1                    ext4              1.0             f35027da-6e72-4aa2-a398-b6d552e081a4      2,7G     0% /mnt/ext4
+├─sdb2                    btrfs                             18d8cbd4-5015-43d6-96f9-71a377fb4d92      2,5G     0% /mnt/btrfs
+└─sdb3                    xfs                               d6ae50b7-9417-4e84-b77a-04d08df408a4      2,8G     3% /mnt/xfs
+sdc                                                                                                               
+└─sdc1                    linux_raid_member 1.2      user:0 92329e53-0a21-1e95-465b-b501e72ec2d3                  
+  └─md0                                                                                                           
+    └─md0p1               ext4              1.0             d88f59a6-385a-4206-b7cd-e3dceb698782      2,5G    43% /media/RAID
+sdd                                                                                                               
+└─sdd1                                                                                                            
+sr0                                                                                                               
+root@ulia:/media/RAID# mdadm /dev/md0 --add /dev/sdd1
+mdadm: added /dev/sdd1
+root@ulia:/media/RAID# cat /proc/mdstat
+Personalities : [raid1] [raid0] [raid6] [raid5] [raid4] [raid10] 
+md0 : active raid1 sdd1[2] sdc1[1]
+      5235712 blocks super 1.2 [2/1] [_U]
+      [=>...................]  recovery =  5.3% (281024/5235712) finish=3.5min speed=23418K/sec
+      
+unused devices: <none>
+root@ulia:/media/RAID# cat /proc/mdstat
+Personalities : [raid1] [raid0] [raid6] [raid5] [raid4] [raid10] 
+md0 : active raid1 sdd1[2] sdc1[1]
+      5235712 blocks super 1.2 [2/1] [_U]
+      [====>................]  recovery = 24.0% (1260992/5235712) finish=2.7min speed=24522K/sec
+      
+unused devices: <none>
+root@ulia:/media/RAID# cat /proc/mdstat
+Personalities : [raid1] [raid0] [raid6] [raid5] [raid4] [raid10] 
+md0 : active raid1 sdd1[2] sdc1[1]
+      5235712 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+root@ulia:/media/RAID# exit
+logout
+ulia@ulia:~$ cd /media/RAID
+ulia@ulia:/media/RAID$ ls -l
+total 28
+-rw-rw-r--   1 user user    86 мая 22 04:46 123
+drwx--x---  12 root root  4096 мая 29 03:08 docker
+drwxr-xr-x 110 user user  4096 мая 22 05:08 etc
+drwx------   2 root root 16384 мая 22 04:39 lost+found
+-rw-r--r--   1 root root     0 мая 29 02:45 ttt
+ulia@ulia:/media/RAID$ blkid /dev/md0p1
+/dev/md0p1: UUID="d88f59a6-385a-4206-b7cd-e3dceb698782" BLOCK_SIZE="4096" TYPE="ext4" PARTLABEL="Linux filesystem" PARTUUID="9bba1883-95e2-49b4-865d-f1f722861ee9"
+ulia@ulia:/media/RAID$ sudo fdisk -l
+[sudo] password for user: 
+Disk /dev/sda: 50 GiB, 53687091200 bytes, 104857600 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: AD0A52E9-7473-46E4-A302-7FDFA1B10B53
+
+Device       Start       End   Sectors Size Type
+/dev/sda1     2048      4095      2048   1M BIOS boot
+/dev/sda2     4096   4198399   4194304   2G Linux filesystem
+/dev/sda3  4198400 104855551 100657152  48G Linux filesystem
+
+
+Disk /dev/sdb: 9 GiB, 9663676416 bytes, 18874368 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: CA3E6B4F-42B6-41F3-B110-AC357E2829D4
+
+Device        Start      End Sectors Size Type
+/dev/sdb1      2048  6293503 6291456   3G Linux filesystem
+/dev/sdb2   6293504 12584959 6291456   3G Linux filesystem
+/dev/sdb3  12584960 18872319 6287360   3G Linux filesystem
+
+
+Disk /dev/sdc: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: CED79103-F488-4CEF-B4FA-EA26DBB23CB8
+
+Device     Start      End  Sectors Size Type
+/dev/sdc1   2048 10483711 10481664   5G Linux RAID
+
+
+Disk /dev/sdd: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: EB9FD13D-DDE6-4E1C-925A-96C11A36272D
+
+Device     Start      End  Sectors Size Type
+/dev/sdd1   2048 10483711 10481664   5G Linux RAID
+
+
+Disk /dev/md0: 4,99 GiB, 5361369088 bytes, 10471424 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: FA0DEEA9-230F-4EA1-A125-53FD4B53AD5C
+
+Device     Start      End  Sectors Size Type
+/dev/md0p1  2048 10469375 10467328   5G Linux filesystem
+
+
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 24 GiB, 25765609472 bytes, 50323456 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+ulia@ulia:/media/RAID$ 
